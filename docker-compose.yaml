@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  go-frontend:
+    build: ./frontend
+    depends_on:
+      - go-backend
+    ports:
+      - 8080:8080
+    links:
+      - go-backend
+    environment:
+      - BACKEND_DNS=go-backend
+
+  go-backend:
+    build: ./backend
+    restart: always
+
