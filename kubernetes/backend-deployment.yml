@@ -15,8 +15,6 @@ spec:
         run: backend
     spec:
       containers:
-      - image: ghcr.io/wuldnarp/simple-fortune-cookie-backend-app:latest
-        name: simple-fortune-cookie-backend-app
-        ports:
-          - containerPort: 9000
-        resources: {}
+        - image: ghcr.io/wuldnarp/simple-fortune-cookie-backend-app:latest
+          name: simple-fortune-cookie-backend-app
+          
