@@ -51,9 +51,9 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: cd ./backend && ls --all && chmod +x ci/build-docker.sh && ci/build-docker.sh
+      run: cd ./backend && ls --all && chmod +x ../ci/build-docker.sh && ../ci/build-docker.sh
     - name: push docker
-      run: cd ./backend && ls --all && chmod +x ci/push-docker.sh && ci/push-docker.sh
+      run: cd ./backend && ls --all && chmod +x ../ci/push-docker.sh && ../ci/push-docker.sh
 
   Docker-image-frontend:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: cd ./frontend && ls --all && chmod +x ci/build-docker.sh && ci/build-docker.sh
+      run: cd ./frontend && ls --all && chmod +x ../ci/build-docker.sh && ../ci/build-docker.sh
     - name: push docker
-      run: cd ./frontend && ls --all && chmod +x ci/push-docker.sh && ci/push-docker.sh
+      run: cd ./frontend && ls --all && chmod +x ../ci/push-docker.sh && ../ci/push-docker.sh
       
