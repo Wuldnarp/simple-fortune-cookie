@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+data:
+  REDIS_HOST: redis
+  REDIS_USER: redis
+  REDIS_DATABASE: fortune-cookie
+  REDIS_PORT: "6379"
+  REDIS_DNS: redis
