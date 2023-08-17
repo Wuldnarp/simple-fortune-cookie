@@ -1,8 +1,10 @@
 name: hello-world
 on: push
 jobs:
-  my-job:
+  Tests:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Go backend tests
+        run: go test -v ./backend
+      - name: Go frontejd tests
+        run: go test -v ./frontend
