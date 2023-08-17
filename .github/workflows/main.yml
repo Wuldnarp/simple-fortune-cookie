@@ -12,12 +12,10 @@ jobs:
     steps:
       - name: download code
         uses: actions/checkout@v3
-      - name: ls
-        run: ls --all
       - name: build backend
-        run:  cd ./backend && ls --all && go build
+        run:  cd ./backend && go build
       - name: build frontend
-        run: cd ./frontend && ls --all && go build
+        run: cd ./frontend && go build
       - name: create artifact
         uses: actions/upload-artifact@v3
         with:
@@ -27,17 +25,13 @@ jobs:
   Tests:
     runs-on: ubuntu-latest
     container: golang:1.16
-    needs: [Build]
     steps:
-      - name: get artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: code
-          path: .
+      - name: download code
+        uses: actions/checkout@v3
       - name: test backend
-        run:  cd ./backend && ls --all && go test
+        run:  cd ./backend && go test
       - name: test frontend
-        run: cd ./frontend && ls --all && go test
+        run: cd ./frontend && go test
 
   Docker-image-backend:
     runs-on: ubuntu-latest
@@ -51,9 +45,9 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: cd ./backend && ls --all && chmod +x ../ci/backend-build-docker.sh && ../ci/backend-build-docker.sh
+      run: cd ./backend && chmod +x ../ci/backend-build-docker.sh && ../ci/backend-build-docker.sh
     - name: push docker
-      run: cd ./backend && ls --all && chmod +x ../ci/backend-push-docker.sh && ../ci/backend-push-docker.sh
+      run: cd ./backend && chmod +x ../ci/backend-push-docker.sh && ../ci/backend-push-docker.sh
 
   Docker-image-frontend:
     runs-on: ubuntu-latest
@@ -67,7 +61,7 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: cd ./frontend && ls --all && chmod +x ../ci/frontend-build-docker.sh && ../ci/frontend-build-docker.sh
+      run: cd ./frontend && chmod +x ../ci/frontend-build-docker.sh && ../ci/frontend-build-docker.sh
     - name: push docker
-      run: cd ./frontend && ls --all && chmod +x ../ci/frontend-push-docker.sh && ../ci/frontend-push-docker.sh
+      run: cd ./frontend && chmod +x ../ci/frontend-push-docker.sh && ../ci/frontend-push-docker.sh
       
