@@ -3,7 +3,7 @@ version: '3'
 services:
 
   go-frontend:
-    build: ./frontend
+    image: ghcr.io/wuldnarp/simple-fortune-cookie-frontend-app:1.0-176a2eb4
     depends_on:
       - go-backend
     ports:
@@ -14,6 +14,6 @@ services:
       - BACKEND_DNS=go-backend
 
   go-backend:
-    build: ./backend
+    image: ghcr.io/wuldnarp/simple-fortune-cookie-backend-app:1.0-176a2eb4
     restart: always
 
