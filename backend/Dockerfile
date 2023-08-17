@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . /app
 
 RUN go mod download && go mod verify &&\
-    cd /app && go build -o backend
+    cd /app && go build -ldflags "-linkmode 'external' -extldflags '-static'" backend
 
 # final stage
 FROM alpine
@@ -15,4 +15,4 @@ WORKDIR /app
 
 COPY --from=builder /app/backend /app/
 
-ENTRYPOINT ["./backend"] 
+CMD ["./backend"] 
