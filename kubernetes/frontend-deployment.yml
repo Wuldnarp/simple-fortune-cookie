@@ -15,8 +15,8 @@ spec:
         run: frontend
     spec:
       containers:
-        - image: ghcr.io/eficode-academy/quotes-flask-frontend:release
-          name: quotes-flask-frontend
+        - image: ghcr.io/wuldnarp/simple-fortune-cookie-frontend-app:latest
+          name: simple-fortune-cookie-frontend-app
           env:
             - name: BACKEND_HOST
               value: backend

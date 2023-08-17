@@ -15,12 +15,8 @@ spec:
         run: backend
     spec:
       containers:
-        - image: ghcr.io/eficode-academy/quotes-flask-backend:release
-          name: quotes-flask-backend
-          ports:
-            - containerPort: 8080
-          env:
-            - name: REDIS_HOST
-              value: database-svc    # Name of your Redis service
-            - name: REDIS_PORT
-              value: "6379"           # Redis default port
+      - image: ghcr.io/wuldnarp/simple-fortune-cookie-backend-app:latest
+        name: simple-fortune-cookie-backend-app
+        ports:
+          - containerPort: 9000
+        resources: {}
