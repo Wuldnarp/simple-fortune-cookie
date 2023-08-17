@@ -11,20 +11,11 @@ jobs:
       - name: ls
         run: ls --all
 
-      - name: change directory
-        run: cd ./backend
-
       - name: build backend
-        run: go build
-
-      - name: change directory
-        run: cd ../frontend
+        run:  cd backend | go build
 
       - name: build frontend
-        run: go build
-
-      - name: change directory
-        run: cd ..
+        run: cd frontend | go build
 
       - name: create artifact
         uses: actions/upload-artifact@v3
