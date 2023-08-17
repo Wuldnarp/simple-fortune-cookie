@@ -9,10 +9,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: build backend
-        run: go build ./backend
+        run: go build -c backend
 
       - name: build frontend
-        run: go build ./frontend
+        run: go build -c frontend
 
       - name: create artifact
         uses: actions/upload-artifact@v3
