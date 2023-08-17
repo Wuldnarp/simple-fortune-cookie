@@ -34,6 +34,9 @@ jobs:
           name: code
           path: .
 
-      - name: run tests
-        run: go test ./...
+      - name: test backend
+        run:  cd ./backend && ls --all && go test
+  
+      - name: test frontend
+        run: cd ./frontend && ls --all && go test
 
