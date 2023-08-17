@@ -1,5 +1,9 @@
 name: pipeline
 on: push
+env:
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+  GIT_COMMIT: ${{ github.sha }}
 
 jobs:
   Unit-tests:
@@ -29,3 +33,36 @@ jobs:
         with:
           name: code
           path: .
+
+  Docker-image-backend:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: cd ./backend && chmod +x ../ci/backend-build-docker.sh && ../ci/backend-build-docker.sh
+    - name: push docker
+      run: cd ./backend && chmod +x ../ci/backend-push-docker.sh && ../ci/backend-push-docker.sh
+
+  Docker-image-frontend:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: cd ./frontend && chmod +x ../ci/frontend-build-docker.sh && ../ci/frontend-build-docker.sh
+    - name: push docker
+      run: cd ./frontend && chmod +x ../ci/frontend-push-docker.sh && ../ci/frontend-push-docker.sh
+      
