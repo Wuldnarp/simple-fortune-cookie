@@ -15,10 +15,10 @@ spec:
         run: frontend
     spec:
       containers:
-        - image: ghcr.io/wuldnarp/simple-fortune-cookie-frontend-app:latest
+        - image: ghcr.io/wuldnarp/simple-fortune-cookie-frontend-app:1.0-1a62f8b8
           name: simple-fortune-cookie-frontend-app
           env:
             - name: BACKEND_DNS
               value: backend
             - name: BACKEND_PORT
-              value: '8080'
+              value: '9000'
