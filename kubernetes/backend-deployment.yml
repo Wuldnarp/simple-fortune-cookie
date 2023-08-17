@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: backend
+  template:
+    metadata:
+      labels:
+        run: backend
+    spec:
+      containers:
+        - image: #ghcr.io/eficode-academy/quotes-flask-backend:release
+          name: #quotes-flask-backend
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_HOST
+              value: redis-service    # Name of your Redis service
+            - name: REDIS_PORT
+              value: "6379"           # Redis default port
