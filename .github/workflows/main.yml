@@ -1,5 +1,10 @@
 name: pipeline
 on: push
+env:
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+  GIT_COMMIT: ${{ github.sha }}
+
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -7,16 +12,12 @@ jobs:
     steps:
       - name: download code
         uses: actions/checkout@v3
-
       - name: ls
         run: ls --all
-
       - name: build backend
         run:  cd ./backend && ls --all && go build
-
       - name: build frontend
         run: cd ./frontend && ls --all && go build
-
       - name: create artifact
         uses: actions/upload-artifact@v3
         with:
@@ -33,10 +34,40 @@ jobs:
         with:
           name: code
           path: .
-
       - name: test backend
         run:  cd ./backend && ls --all && go test
-  
       - name: test frontend
         run: cd ./frontend && ls --all && go test
 
+  Docker-image-backend:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: cd ./backend && ls --all && chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: push docker
+      run: cd ./backend && ls --all && chmod +x ci/push-docker.sh && ci/push-docker.sh
+
+  Docker-image-frontend:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: cd ./frontend && ls --all && chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: push docker
+      run: cd ./backend && ls --all && chmod +x ci/push-docker.sh && ci/push-docker.sh
+      
