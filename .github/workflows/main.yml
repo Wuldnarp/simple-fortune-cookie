@@ -12,10 +12,10 @@ jobs:
         run: ls --all
 
       - name: build backend
-        run:  cd ./backend & go build
+        run:  cd ./backend && ls --all && go build
 
       - name: build frontend
-        run: cd ./frontend & go build
+        run: cd ./frontend && ls --all && go build
 
       - name: create artifact
         uses: actions/upload-artifact@v3
