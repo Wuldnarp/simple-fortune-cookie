@@ -1,8 +1,42 @@
 name: hello-world
 on: push
 jobs:
-  my-job:
+  Build:
     runs-on: ubuntu-latest
+    container: golang:1.16
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: download code
+        uses: actions/checkout@v3
+
+      - name: ls
+        run: ls --all
+
+      - name: build backend
+        run:  cd ./backend && ls --all && go build
+
+      - name: build frontend
+        run: cd ./frontend && ls --all && go build
+
+      - name: create artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code
+          path: .
+
+  Tests:
+    runs-on: ubuntu-latest
+    container: golang:1.16
+    needs: [Build]
+    steps:
+      - name: get artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+
+      - name: test backend
+        run:  cd ./backend && ls --all && go test
+  
+      - name: test frontend
+        run: cd ./frontend && ls --all && go test
+
