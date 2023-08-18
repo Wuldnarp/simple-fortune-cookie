@@ -14,9 +14,22 @@ spec:
       labels:
         run: redis
     spec:
+      volumes:
+      - name: redis-pvc
+        persistentVolumeClaim:
+          claimName: redis-pvc 
       containers:
       - image: redis:latest
         name: redis
         ports:
           - containerPort: 6379
         resources: {}
+        envFrom:
+          - configMapRef:
+              name: redis-config
+        env:
+          - name: ALLOW_EMPTY_PASSWORD
+            value: "yes"
+        volumeMounts:
+          - name: redis-pvc
+            mountPath: /redis-master-data

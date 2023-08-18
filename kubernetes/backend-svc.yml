@@ -11,4 +11,5 @@ spec:
       targetPort: 9000
   selector:
     run: backend
+  type: ClusterIP
   
